@@ -3,9 +3,9 @@ key_name = "nginx-lb"
 region = "us-east-1"
 project_name = "load-balanced-nginx"
 
-project_log_key = "nginx-logging-zx"
+project_log_key = "aws-devops-zx"
 
-load_balancer_name = "nginx-lb"
+load_balancer_name = "devops-lb"
 load_balancer_log_key = "test-lb"
 alb_target_group_name = "WEB-TG"
 
