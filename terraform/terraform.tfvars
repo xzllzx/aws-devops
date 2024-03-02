@@ -1,5 +1,5 @@
 # Key name
-key_name = "nginx-lb"
+key_name = "devops"
 region = "us-east-1"
 project_name = "load-balanced-nginx"
 
