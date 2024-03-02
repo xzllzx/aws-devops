@@ -9,7 +9,7 @@ env:
   WORKING_DIRECTORY: terraform
   ELB_TARGET_RESOURCE: aws_lb_target_group.alb_target_group
   S3_BUCKET_RESOURCE: aws_s3_bucket.lb_logs
-  S3_BUCKET_NAME: nginx-logging-zx
+  S3_BUCKET_NAME: aws-devops-zx
   S3_BUCKET_KEY_NAME: infra.tfstate
 
 jobs:
