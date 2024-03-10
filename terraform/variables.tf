@@ -45,16 +45,29 @@ variable "public_ec2_sg_name" {
   type        = string
   description = "Name of the public EC2 instances' Security Group."
 }
+variable "private_ec2_sg_name" {
+  type        = string
+  description = "Name of the private EC2 instances' Security Group."
+}
 
 variable "vpc_cidr_block" {
   type        = string
   description = "CIDR block to use for VPC"
 }
 
-variable "subnet_cidr_blocks" {
-  type        = object({
-    us-east-1a = string
-    us-east-1b = string
-  })
-  description = "CIDR blocks to use for subnets"
+variable "availability_zones" {
+  type        = list(string)
+  description = "Availability Zones to span VPC across"
+
+  default = ["us-east-1a", "us-east-1b"] # Adjust AZs as needed
+}
+
+variable "public_subnet_cidr_blocks" {
+  type        = list(string)
+  description = "CIDR blocks to use for public subnets"
+}
+
+variable "private_subnet_cidr_blocks" {
+  type        = list(string)
+  description = "CIDR blocks to use for private subnets"
 }

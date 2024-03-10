@@ -9,12 +9,22 @@ resource "aws_vpc" "main" {
 # VPC Subnets
 resource "aws_subnet" "public_subnets" {
   # Define the subnet AZs and CIDR blocks
-  for_each = var.subnet_cidr_blocks
+  for_each = { for idx, az in var.availability_zones : idx => az }
 
-  vpc_id            = aws_vpc.main.id
-  availability_zone = each.key
-  cidr_block        = each.value
+  vpc_id                  = aws_vpc.main.id
+  availability_zone       = each.value
+  cidr_block              = var.public_subnet_cidr_blocks[each.key]
   map_public_ip_on_launch = true
+}
+
+resource "aws_subnet" "private_subnets" {
+  # Define the subnet AZs and CIDR blocks
+  for_each = { for idx, az in var.availability_zones : idx => az }
+
+  vpc_id                  = aws_vpc.main.id
+  availability_zone       = each.value
+  cidr_block              = var.private_subnet_cidr_blocks[each.key]
+  map_public_ip_on_launch = false
 }
 
 # IGW

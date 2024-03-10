@@ -25,7 +25,18 @@ resource "aws_instance" "public_instance" {
   subnet_id                   = each.value.id
   vpc_security_group_ids      = [aws_security_group.public_instance.id]
   associate_public_ip_address = true
-  depends_on                  = [ aws_subnet.public_subnets ]
+  depends_on                  = [aws_subnet.public_subnets]
+}
 
-  user_data                   = file("../userdata.tpl")
+resource "aws_instance" "private_instance" {
+  for_each = aws_subnet.private_subnets
+
+  instance_type               = "t2.micro"
+  ami                         = data.aws_ami.amazon_ami.id
+  key_name                    = var.key_name
+  subnet_id                   = each.value.id
+  vpc_security_group_ids      = [aws_security_group.private_instance.id]
+  depends_on                  = [aws_subnet.private_subnets]
+
+  user_data = file("../userdata.tpl")
 }
