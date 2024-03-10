@@ -16,7 +16,7 @@ data "aws_iam_policy_document" "allow_alb" {
     }
 
     actions = ["s3:PutObject"]
-    effect = "Allow"
+    effect  = "Allow"
     resources = [
       aws_s3_bucket.lb_logs.arn,
       "${aws_s3_bucket.lb_logs.arn}/*",
