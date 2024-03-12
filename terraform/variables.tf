@@ -1,4 +1,4 @@
-# Variables
+# AWS
 variable "key_name" {
   type        = string
   description = "Name of private key pair."
@@ -70,4 +70,10 @@ variable "public_subnet_cidr_blocks" {
 variable "private_subnet_cidr_blocks" {
   type        = list(string)
   description = "CIDR blocks to use for private subnets"
+}
+
+# Docker
+variable "docker_image" {
+  description = "Name of the Docker image to pull and run"
+  type        = string
 }

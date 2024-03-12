@@ -39,5 +39,8 @@ resource "aws_instance" "private_instance" {
   associate_public_ip_address = true
   depends_on                  = [aws_subnet.private_subnets]
 
-  user_data = file("../userdata.tpl")
+  # user_data = file("./userdata.tpl")
+  user_data = templatefile("./userdata.tpl", {
+    docker_image = var.docker_image
+  })
 }
