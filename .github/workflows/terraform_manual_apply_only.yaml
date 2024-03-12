@@ -1,0 +1,52 @@
+---
+name: "Manually apply Terraform Stack on AWS"
+run-name: ${{ github.actor }} is testing out an Nginx deployment on AWS
+on:
+  workflow_dispatch:
+
+env:
+  AWS_REGION: us-east-1
+  WORKING_DIRECTORY: terraform
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: configure AWS
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-duration-seconds: 1200
+          retry-max-attempts: 5
+          
+      - name: Terraform setup
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.7.3"
+
+      - name: terraform init
+        id: init
+        run: terraform init
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+
+      - name: terraform apply
+        id: apply
+        env:
+          DOCKER_IMAGE_NAME: ${{ secrets.DOCKER_IMAGE_NAME }}
+          TF_LOG: ERROR
+        run: terraform apply -auto-approve -input=false -var "docker_image=$DOCKER_IMAGE"
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        continue-on-error: true
+
+      - name: Display Terraform output
+        run: terraform output
+        working-directory: ${{ env.WORKING_DIRECTORY }}
