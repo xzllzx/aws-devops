@@ -55,6 +55,11 @@ jobs:
         timeout-minutes: 2
         run: terraform import ${{ env.S3_BUCKET_RESOURCE }} ${{ env.S3_BUCKET_NAME }}
         working-directory: ${{ env.WORKING_DIRECTORY }}
+        continue-on-error: false
+
+      - name: terraform import ELB Target Group
+        run: terraform import ${{ env.ELB_TARGET_RESOURCE }} ${{ secrets.ELB_TARGET_GROUP_ARN }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
         continue-on-error: true
 
       - name: terraform apply
