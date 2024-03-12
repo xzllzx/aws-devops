@@ -7,6 +7,13 @@ output "load_balancer_dns_name" {
 output "instance_public_dns" {
   description = "Public DNS of EC2 instance"
   value = [
-    for instance in aws_instance.public_instance : instance.public_dns
+    for instance in aws_instance.public_instance : [instance.public_ip, instance.public_dns, instance.private_dns]
+  ]
+}
+
+output "instance_private_dns" {
+  description = "Private DNS of EC2 instance"
+  value = [
+    for instance in aws_instance.private_instance : [instance.public_ip, instance.public_dns, instance.private_dns]
   ]
 }
