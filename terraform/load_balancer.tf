@@ -46,7 +46,7 @@ resource "aws_lb_listener" "front_end" {
   }
 }
 
-import {
-  to = aws_lb_target_group.alb_target_group
-  id = var.alb_target_group_arn
-}
+# import {
+#   to = aws_lb_target_group.alb_target_group
+#   id = var.alb_target_group_arn
+# }
