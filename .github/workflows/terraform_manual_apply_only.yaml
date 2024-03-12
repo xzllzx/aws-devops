@@ -1,5 +1,5 @@
 ---
-name: "Manually apply Terraform Stack on AWS"
+name: "Barebones apply only"
 run-name: ${{ github.actor }} is testing out an Nginx deployment on AWS
 on:
   workflow_dispatch:
