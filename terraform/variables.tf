@@ -72,6 +72,11 @@ variable "private_subnet_cidr_blocks" {
   description = "CIDR blocks to use for private subnets"
 }
 
+variable "alb_target_group_arn" {
+  description = "ALB Target Group's ARN"
+  type        = string
+}
+
 # Docker
 variable "docker_image" {
   description = "Name of the Docker image to pull and run"
