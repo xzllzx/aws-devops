@@ -48,19 +48,27 @@ resource "aws_security_group" "private_instance" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "private_ec2_allow_ssh" {
-  security_group_id = aws_security_group.private_instance.id
+  security_group_id            = aws_security_group.private_instance.id
   referenced_security_group_id = aws_security_group.public_instance.id
-  from_port         = 22
-  ip_protocol       = "tcp"
-  to_port           = 22
+  from_port                    = 22
+  ip_protocol                  = "tcp"
+  to_port                      = 22
 }
 
-resource "aws_vpc_security_group_ingress_rule" "private_ec2_allow_http" {
-  security_group_id            = aws_security_group.private_instance.id
+# resource "aws_vpc_security_group_ingress_rule" "private_ec2_allow_http" {
+#   security_group_id = aws_security_group.private_instance.id
+#   referenced_security_group_id = aws_security_group.lb.id
+#   from_port   = 80
+#   ip_protocol = "tcp"
+#   to_port     = 80
+# }
+
+resource "aws_vpc_security_group_ingress_rule" "private_ec2_allow_5000" {
+  security_group_id = aws_security_group.private_instance.id
   referenced_security_group_id = aws_security_group.lb.id
-  from_port                    = 80
-  ip_protocol                  = "tcp"
-  to_port                      = 80
+  from_port   = 5000
+  ip_protocol = "tcp"
+  to_port     = 5000
 }
 
 resource "aws_vpc_security_group_egress_rule" "private_ec2_allow_all_egress" {
