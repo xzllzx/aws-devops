@@ -7,6 +7,9 @@ on:
 env:
   AWS_REGION: us-east-1
   WORKING_DIRECTORY: terraform
+  S3_BUCKET_RESOURCE: aws_s3_bucket.lb_logs
+  S3_BUCKET_NAME: aws-devops-zx
+  S3_BUCKET_KEY_NAME: infra.tfstate
 
 jobs:
   terraform:
@@ -37,6 +40,11 @@ jobs:
         id: init
         run: terraform init
         working-directory: ${{ env.WORKING_DIRECTORY }}
+
+      - name: terraform import S3
+        run: terraform import ${{ env.S3_BUCKET_RESOURCE }} ${{ env.S3_BUCKET_NAME }}
+        working-directory: ${{ env.WORKING_DIRECTORY }}
+        continue-on-error: false
 
       - name: terraform apply
         id: apply
