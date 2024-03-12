@@ -52,6 +52,7 @@ jobs:
         run: terraform validate
         
       - name: terraform import S3
+        timeout-minutes: 2
         run: terraform import ${{ env.S3_BUCKET_RESOURCE }} ${{ env.S3_BUCKET_NAME }}
         working-directory: ${{ env.WORKING_DIRECTORY }}
         continue-on-error: true
