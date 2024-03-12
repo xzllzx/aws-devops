@@ -23,3 +23,8 @@ data "aws_iam_policy_document" "allow_alb" {
     ]
   }
 }
+
+import {
+  to = aws_s3_bucket.lb_logs
+  id = var.project_log_key
+}
