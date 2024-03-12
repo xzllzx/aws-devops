@@ -6,7 +6,7 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  WORKING_DIRECTORY: ../terraform
+  WORKING_DIRECTORY: terraform
   ELB_TARGET_RESOURCE: aws_lb_target_group.alb_target_group
   S3_BUCKET_RESOURCE: aws_s3_bucket.lb_logs
   S3_BUCKET_NAME: aws-devops-zx
